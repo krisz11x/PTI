@@ -1,0 +1,42 @@
+#include <iostream>
+
+using namespace std;
+int main()
+{
+    int n;
+    cout<<"Hany elemu legyen a tomb?:\n";
+    cin>>n;
+    n=n-1;
+    int t[n];
+    int szum1=0,szum2=0,j=0,db1=0,db2=0,i=0;
+    cout<<"Toltsd fel a tombot\n";
+    for (int i=0;i<=n;i++)
+        cin>>t[i];
+        
+    i=0;
+    while(db1<=n){
+        
+    
+        while(i<=db1){ 
+            szum1+=t[i];      
+            i++;
+        }
+            while(j<n){   
+            szum2+=t[j+1];  
+            j++;
+        }
+        db1++;
+        db2++;
+        j=db2;
+        i=0;
+    if(szum1==szum2){
+    
+    cout<<"Egyenlő";
+    return 0; 
+    }
+    szum1=0;
+    szum2=0; 
+    }
+    cout<<"Nem egyenlő";
+    return 0;
+}
