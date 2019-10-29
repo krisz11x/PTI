@@ -1,0 +1,39 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cout<<"Adja meg a sorozat elemeinek szamat\n";
+    cin>>n;
+    n=n-1;
+    int t[n];
+    int i=0;
+    cout<<"Adja meg a sorozat elemeit\n";
+    for (int i=0;i<=n;i++)
+        cin>>t[i];
+        
+    i=0;
+    
+    int j=1,db=1,leghosszabb=0;
+    while (i<n){
+        if(t[i]<t[j]){
+        db++;
+            if(db>leghosszabb){
+            leghosszabb=db;
+            }
+        }
+        else{
+        db=1;
+        }
+    i++;
+    j++;
+    }
+    cout<<"A leghosszabb sorozat "<<leghosszabb<<" elemu";
+
+
+
+
+    return 0;
+}
