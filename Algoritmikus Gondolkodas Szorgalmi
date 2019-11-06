@@ -1,0 +1,66 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    srand(time(NULL));
+    int a,n,m;
+    cout<<"Adja meg a sorok szamat\n";
+    cin>>n;
+    cout<<"Adja meg az oszlopok szamat\n";
+    cin>>m;
+    int t[n][m];
+    for(int i=0;i<n;i++){ //Tomb feltoltese random szamokkal
+        for(int j=0;j<m;j++){
+            a=rand()%200 -100; //Az intervallum amiben a random szamok lehetnek (-100<0<100)
+            t[i][j]=a;
+        }
+    }
+    for(int i=0;i<n;i++){ //Tomb kiirasa
+        for(int j=0;j<m;j++){
+            cout<<t[i][j]<<"\t";
+        }
+        cout<<endl;
+    }
+    
+    int z[n][m]; //Egy uj tomb letrehozasa es elso soranak feltoltese
+    z[0][0]=t[0][0];
+    for(int i=1;i<n;i++)
+        z[i][0]=z[i-1][0]+t[i][0];
+    
+    for(int j=1;j<m;j++) //Elso oszlop feltoltese
+        z[0][j]=z[0][j-1]+t[0][j];
+    //Ha itt n-et es m-et ujra bekerjuk, megadhatjuk melyik sor melyik oszlopaba szeretnenk eljutni
+    
+    for(int i=1;i<n;i++){ //Kiszamolja n.sor m. oszlopanak lehetseges legnagyobb osszeget, es feltolti vele a z[] tombot
+        for(int j=1;j<m;j++){
+            if(z[i-1][j]>z[i][j-1])
+                z[i][j]=t[i][j]+z[i-1][j];
+            else
+                z[i][j]=t[i][j]+z[i][j-1];
+        }
+    }
+    int i=n-1;
+    int j=m-1;
+    int legnagyobb_szamok[n+m-1]; //Visszafele feltoltunk egy tombot az ut lepeseivel
+    legnagyobb_szamok[n+m-2]=t[n-1][m-1];
+    legnagyobb_szamok[0]=t[0][0];
+    for (int b=n+m-3;b>0;b--){
+        if(z[i][j]==t[i][j]+z[i-1][j]){
+            legnagyobb_szamok[b]=t[i-1][j];
+            i--;
+        }
+        else{
+            legnagyobb_szamok[b]=t[i][j-1];
+            j--;
+        }
+    }
+    cout<<"A legnagyobb lehetseges osszeg: "<<z[n-1][m-1]<<endl;
+    cout<<"Az utvonal elemei:";
+    for(int i=0;i<n+m-1;i++){
+        cout<<legnagyobb_szamok[i]<<",\t";
+    }
+    
+    return 0;
+}
